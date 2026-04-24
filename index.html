@@ -1,125 +1,37 @@
 <!DOCTYPE html>
-<html lang="my">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLITZ AI | Voice Assistant</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Blitz Football Retro</title>
     <style>
-        body {
-            background: radial-gradient(circle, #0f172a, #020617);
-            color: #00f2ff;
-            font-family: 'Orbitron', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        .ai-core {
-            width: 300px;
-            height: 300px;
-            background: rgba(0, 242, 255, 0.05);
-            border: 2px solid #00f2ff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
-            cursor: pointer;
-            transition: 0.5s;
-        }
-        .ai-core:hover { transform: scale(1.05); box-shadow: 0 0 80px rgba(0, 242, 255, 0.4); }
-        .inner-ring {
-            width: 80%; height: 80%;
-            border: 1px dashed #00f2ff;
-            border-radius: 50%;
-            animation: rotate 10s linear infinite;
-        }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .status-text {
-            position: absolute;
-            bottom: -60px;
-            font-size: 18px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-align: center;
-        }
-        #response {
-            position: absolute;
-            top: -100px;
-            width: 80vw;
-            text-align: center;
-            font-size: 24px;
-            color: white;
-            text-shadow: 0 0 10px #00f2ff;
-        }
+        body { margin: 0; background: #000; color: white; text-align: center; font-family: sans-serif; }
+        #game-container { width: 100vw; height: 80vh; }
+        .controls { padding: 20px; color: #00f2ff; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div id="response">"Hello Blitz, I am listening..."</div>
-
-    <div class="ai-core" onclick="startListening()">
-        <div class="inner-ring"></div>
-        <i class="fas fa-microphone" style="font-size: 50px; position: absolute;"></i>
+    <h2>⚽ BLITZ RETRO FOOTBALL ⚽</h2>
+    
+    <div id="game-container">
+        <div id="emulator"></div>
     </div>
 
-    <div class="status-text" id="status">Tap to Activate</div>
+    <div class="controls">
+        PC: Arrow Keys (Move), Z (A), X (B), Enter (Start)<br>
+        Mobile: On-screen buttons will appear!
+    </div>
 
     <script>
-        const responseText = document.getElementById('response');
-        const statusText = document.getElementById('status');
-
-        // Voice Recognition Setup
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        const recognition = new SpeechRecognition();
-
-        recognition.onstart = () => {
-            statusText.innerText = "Listening...";
-            statusText.style.color = "red";
+        EmuJS = {
+            use_visual_settings: false,
+            core: "gba", // Game Boy Advance အတွက်
+            game_url: "game.gba", // မင်းတင်မယ့် ဂိမ်းဖိုင်နာမည်
+            container: "#emulator",
         };
-
-        recognition.onresult = (event) => {
-            const command = event.results[0][0].transcript.toLowerCase();
-            processCommand(command);
-        };
-
-        recognition.onend = () => {
-            statusText.innerText = "Tap to Activate";
-            statusText.style.color = "#00f2ff";
-        };
-
-        function startListening() {
-            recognition.start();
-        }
-
-        function processCommand(cmd) {
-            responseText.innerText = `You said: "${cmd}"`;
-
-            if (cmd.includes('hello')) {
-                speak("Hello Boss Blitz! How can I help you today?");
-            } else if (cmd.includes('time')) {
-                speak("The current time is " + new Date().toLocaleTimeString());
-            } else if (cmd.includes('open google')) {
-                speak("Opening Google now.");
-                window.open('https://google.com', '_blank');
-            } else if (cmd.includes('who are you')) {
-                speak("I am Blitz-AI, your personal assistant created by a legendary developer.");
-            } else {
-                speak("I heard you say " + cmd + ". But I don't know that command yet.");
-            }
-        }
-
-        function speak(text) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.rate = 1;
-            utterance.pitch = 1;
-            window.speechSynthesis.speak(utterance);
-            responseText.innerText = text;
-        }
     </script>
+    <script src="https://www.emulatorjs.com/loader.js"></script>
+
 </body>
 </html>

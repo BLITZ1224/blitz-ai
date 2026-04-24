@@ -1,37 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blitz Football Retro</title>
+    <title>BLITZ RETRO GAMING | FOOTBALL</title>
     <style>
-        body { margin: 0; background: #000; color: white; text-align: center; font-family: sans-serif; }
-        #game-container { width: 100vw; height: 80vh; }
-        .controls { padding: 20px; color: #00f2ff; font-weight: bold; }
+        /* UI ကို Gaming ဆန်ဆန် အမည်းရောင်နဲ့ အစုံဆောက်ထားတယ် */
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background-color: #000; color: #fff; 
+            display: flex; flex-direction: column; align-items: center; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        #game-display { 
+            width: 100vw; height: 90vh; 
+            max-width: 1000px;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+        }
+        .footer {
+            height: 10vh; width: 100%;
+            background: #111; display: flex;
+            justify-content: center; align-items: center;
+            font-size: 14px; border-top: 1px solid #333;
+            color: #00f2ff; text-transform: uppercase; letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
 
-    <h2>⚽ BLITZ RETRO FOOTBALL ⚽</h2>
-    
-    <div id="game-container">
-        <div id="emulator"></div>
-    </div>
+    <div id="game-display"></div>
 
-    <div class="controls">
-        PC: Arrow Keys (Move), Z (A), X (B), Enter (Start)<br>
-        Mobile: On-screen buttons will appear!
+    <div class="footer">
+        ⚽ BLITZ EDITION - PRESS START TO PLAY ⚽
     </div>
 
     <script>
-        EmuJS = {
-            use_visual_settings: false,
-            core: "gba", // Game Boy Advance အတွက်
-            game_url: "game.gba", // မင်းတင်မယ့် ဂိမ်းဖိုင်နာမည်
-            container: "#emulator",
-        };
+        // Emulator Configuration (Variable နာမည်တွေကို အတိအကျ သုံးထားတာပါ)
+        window.EJS_player = '#game-display';
+        window.EJS_core = 'gba'; // GBA core သုံးမယ်
+        window.EJS_gameUrl = 'game.gba'; // GitHub ထဲက မင်းရဲ့ ဖိုင်နာမည်နဲ့ တူရမယ်
+        
+        // Data တွေကို ဆွဲထုတ်ဖို့ Path
+        window.EJS_pathtodata = 'https://cdn.statically.io/gh/EmulatorJS/EmulatorJS/main/data/';
+        
+        // Settings အချို့
+        window.EJS_startOnLoaded = true; // Load ဖြစ်တာနဲ့ တန်းပွင့်မယ်
+        window.EJS_DEBUG_XX = true; // Error ရှိရင် သိရအောင်
     </script>
-    <script src="https://www.emulatorjs.com/loader.js"></script>
+    
+    <script src="https://cdn.statically.io/gh/EmulatorJS/EmulatorJS/main/data/loader.js"></script>
 
 </body>
 </html>
